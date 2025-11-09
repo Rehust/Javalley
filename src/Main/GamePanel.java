@@ -12,7 +12,7 @@ import java.security.Key;
 public class GamePanel extends JPanel implements Runnable{
     //screen setting
     final int originalTileSize = 16;
-    final int scale = 4;
+    final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48
     public final int maxScreenCol = 16;
