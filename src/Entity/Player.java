@@ -4,6 +4,7 @@ import Main.GamePanel;
 import Main.KeyHandler;
 import tile.Tile;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Console;
@@ -16,6 +17,8 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
     public int equippedTool = 0;
+    private Cursor shovelCursor;
+    private Cursor defaultCursor;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -23,6 +26,7 @@ public class Player extends Entity {
 
         setDefaultValue();
         getPlayerImage();
+        loadCursor();
     }
 
     public void setDefaultValue() {
@@ -38,6 +42,27 @@ public class Player extends Entity {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    public void loadCursor() {
+        try {
+            BufferedImage shovelImage = ImageIO.read(getClass().getResourceAsStream("/tool/shovel.gif"));
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+
+            int imageWidth = shovelImage.getWidth();
+            int imageHeight = shovelImage.getHeight();
+            Dimension bestCursorSize = toolkit.getBestCursorSize(shovelImage.getWidth(), shovelImage.getHeight());
+
+            System.out.println("Original image size: " + shovelImage.getWidth() + "x" + shovelImage.getHeight());
+            System.out.println("Best cursor size: " + bestCursorSize.width + "x" + bestCursorSize.height);
+
+            shovelCursor = toolkit.createCustomCursor(shovelImage, new Point(16 / 2, 32 - 1), "ShovelCursor");
+
+            defaultCursor = Cursor.getDefaultCursor();
+        } catch (Exception e) {
+            e.printStackTrace();
+            shovelCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
+        }
     }
 
     public void update() {
@@ -57,7 +82,17 @@ public class Player extends Entity {
             direction = "right";
             x += speed;
         }
+        int previousTool = equippedTool;
         equippedTool = keyH.selectedToolSlot;
+
+        if(previousTool != equippedTool){
+            if (equippedTool == 1){
+                gp.setCursor(shovelCursor);
+            }
+            else {
+                gp.setCursor(defaultCursor);
+            }
+        }
     }
 
     public void useTool() {
