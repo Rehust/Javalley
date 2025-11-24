@@ -27,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable{ // inherit JPanel, in
     public final int worldHeight = tileSize * maxWorldRow;
     // FPS
     int FPS = 60;
-    int n = 9;
 
     KeyHandler keyH = new KeyHandler(); // create a keyhandler object
     Thread gameThread; // can start and stop; keep running until stop it
