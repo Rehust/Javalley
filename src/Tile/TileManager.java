@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tile;
-    int mapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp){
         this.gp = gp;
@@ -28,10 +28,18 @@ public class TileManager {
                 tile[i] = new Tile();
 
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Resource/Structure+Tile (1)/Structure+Tile/Tile/grass.png"));
+
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/Resource/Structure+Tile (1)/Structure+Tile/Tile/wall.png"));
+            tile[1].collision = true;
+
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/Resource/Structure+Tile (1)/Structure+Tile/Tile/water.png"));
+            tile[2].collision = true;
+
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Resource/Structure+Tile (1)/Structure+Tile/Tile/earth.png"));
+
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/Resource/Structure+Tile (1)/Structure+Tile/Tile/tree.png"));
+            tile[4].collision  = true;
+
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/Resource/Structure+Tile (1)/Structure+Tile/Tile/sand.png"));
 
         } catch (IOException e) {
